@@ -11,6 +11,7 @@ askama = "0.11.0"
 thiserror = "1.0.30"
 r2d2 = "0.8.9"
 r2d2_sqlite = "0.19.0"
+serde = {version = "1.0", features = ["derive"]}
 
 [dependencies.rusqlite]
 version = "0.26.0"
