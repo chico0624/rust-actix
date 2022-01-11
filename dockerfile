@@ -1,4 +1,4 @@
-FROM rust:1.57
+FROM rust:1.57 As builder
 
 WORKDIR /todo
 
@@ -19,6 +19,9 @@ RUN rm -f target/release/deps/todo*
 # 改めてアプリをビルド
 RUN cargo build --release
 
-RUN cargo install --path .
+# リリース用イメージを用意、Rustツールチェーンは不要なのでdebianを使用
+FROM debian:11.2
 
+# builderイメージからtodoのみをコピーして配置「cargo install --path .」の代替
+COPY --from=builder /todo/target/release/todo /usr/local/bin/todo
 CMD ["todo"]
